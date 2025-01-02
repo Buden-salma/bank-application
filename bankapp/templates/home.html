@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+      html,body{
+        background-image: url('https://c0.wallpaperflare.com/preview/402/213/175/france-paris-the-francois-mitterrand-library-architecture.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: auto;
+        max-width: 100% ;
+        font-family: 'Numans', sans-serif;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            width: 100%;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin-top: 20px; /* Ensures space below the navbar */
+            padding-top: 60px; /* Adjust if navbar height changes */
+        }
+        .card {
+            width: 18rem;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .card-subtitle {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #6c757d;
+        }
+        .card-link {
+            display: inline-block;
+            margin-right: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .card-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-subtitle mb-2 text-muted">USER DETAILS</h3>
+                <p class="card-text">HELLO, MR/MISS ATP_BANK USER</p>
+                <p>We are very glad that you are part of our bank.</p>
+                <p>Please feel free to use our services.</p>
+                <a href="{% url 'transfer' %}" class="card-link">Transfer</a>
+                <a href="{% url 'history' %}" class="card-link">Transaction History</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

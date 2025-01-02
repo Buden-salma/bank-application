@@ -1,0 +1,185 @@
+<!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<style>
+    html,body{
+        background-image: url('https://c0.wallpaperflare.com/preview/402/213/175/france-paris-the-francois-mitterrand-library-architecture.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+    }
+    form_main {
+    width: 100%;
+}
+.form_main h4 {
+    font-family: roboto;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+.heading {
+    border-bottom: 1px solid #7486ec;
+    padding-bottom: 9px;
+    position: relative;
+}
+.heading span {
+    background: #9e6600 none repeat scroll 0 0;
+    bottom: -2px;
+    height: 3px;
+    left: 0;
+    position: absolute;
+    width: 75px;
+}   
+.form {
+    border-radius: 7px;
+    padding: 6px;
+}
+.txt[type="text"] {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px 0 10px 5px;
+    width: 100%;
+}
+.txt_3[type="text"] {
+    margin: 10px 0 0;
+    padding: 10px 0 10px 5px;
+    width: 100%;
+}
+.txt2[type="submit"] {
+    background: #242424 none repeat scroll 0 0;
+    border: 1px solid #4f5c04;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 35px;
+    margin: 10px 0;
+    padding: 0;
+    text-transform: uppercase;
+    width: 30%;
+}
+.txt2:hover {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    color: #5793ef;
+    transition: all 0.5s ease 0s;
+}
+
+</style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        thead {
+            background-color: gray;
+            color: white;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        caption {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: hsl(355, 82%, 47%);
+        }
+        th, td {
+            padding: 10px;
+            text-align: center; /* Centers text horizontally */
+            vertical-align: middle; /* Centers text vertically */
+            height: 50px; /* Optional: Ensures enough height for vertical centering */
+        }
+        h4{
+            background-color:gray;
+        }
+    </style>
+<body>
+{% include 'navbar.html' %}
+<table>
+    <thead>
+        <th colspan="4" text-align ="center">View Balance</th>
+        <tr>
+            <th>Account Type</th>
+            <th>Account Number</th>
+            <th>Balance</th>
+            {% if request.user.is_superuser %}
+                <th>Actions</th> <!-- This column is for the delete button -->
+            {% endif %}
+        </tr>
+    </thead>
+    <form method="post">{% csrf_token %}
+    <tbody>
+        {% for res in all %}
+        <tr>
+            <td>{{ res.Account_type }}</td>
+            <td>{{ res.Account_number }}</td>
+            <td>{{ res.balance }}</td>
+            {% if request.user.is_superuser %}
+                <td>
+                    <a href="{% url 'delete' rid=res.id %}" class="btn btn-danger">Delete</a>
+                </td> <!-- Delete button for superusers -->
+            {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No users available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </form>
+</table>
+
+{% if request.user.is_superuser %}
+<div class="container">
+	<div class="row">
+    <div class="col-md-4">
+		<div class="form_main">
+                <h4 class="heading">View Balance <span></span></h4>
+                <div class="form">
+                <form action="" method="post" id="contactFrm" name="contactFrm">{% csrf_token %}
+                    <input type="text" required="" placeholder="Enter the Account type" value="" name="Account_type" class="txt">
+                    <input type="text" required="" placeholder="Enter the Account_Number" value="" name="Account_number" class="txt">
+                    <input type="text" required="" placeholder="Enter the Balance" value="" name="balance" class="txt">
+                    
+                    <input type="submit" value="submit" name="submit" class="txt2">
+                    {% for transaction in transactions %}
+                    <p>{{ transaction.amount }} - 
+                    <a href="{% url 'delete' rid=transaction.id %}">Delete</a>
+                    </p>
+                    {% endfor %}
+
+                    
+                </form>
+            </div>
+            </div>
+            </div
+	</div>
+</div>
+{% endif %}
+</body>
+</html>

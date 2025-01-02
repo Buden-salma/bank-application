@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        /* General styles for the body */
+        html, body {
+            background-image: url('https://c0.wallpaperflare.com/preview/402/213/175/france-paris-the-francois-mitterrand-library-architecture.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Numans', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Styling the container */
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+            width: 400px;
+            box-sizing: border-box;
+        }
+
+        /* Form header */
+        .container h2 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* General styles for form inputs */
+        .container form div {
+            margin-bottom: 15px;
+        }
+
+        .container form label {
+            display: block;
+            color: #555555;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .container form input[type="text"],
+        .container form input[type="password"],
+        .container form input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* Button styles */
+        .container form button {
+            width: 100%;
+            padding: 10px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .container form button:hover {
+            background: #45a049;
+        }
+
+        /* Link styles */
+        .container p {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 10px;
+            color: #555555;
+        }
+
+        .container p a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        .container p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error message styles */
+        .container ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+            color: #d9534f;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <!-- Display errors -->
+        {% if error %}
+        <ul>
+            <li>{{ error }}</li>
+        </ul>
+        {% endif %}
+        <!-- Registration Form -->
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" placeholder="Enter your username" required>
+            </div>
+            <div>
+                <label for="firstname">First Name:</label>
+                <input type="text" name="firstname" id="firstname" placeholder="Enter your first name" required>
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" name="lastname" id="lastname" placeholder="Enter your last name" required>
+            </div>
+            <div>
+                <label for="passw">Password:</label>
+                <input type="password" name="passw" id="passw" placeholder="Enter your password" required>
+            </div>
+            <div>
+                <label for="cpass">Confirm Password:</label>
+                <input type="password" name="cpass" id="cpass" placeholder="Confirm your password" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </div>
+</body>
+</html>

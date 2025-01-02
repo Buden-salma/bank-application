@@ -1,0 +1,83 @@
+<!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        html,body{
+        background-image: url('https://c0.wallpaperflare.com/preview/402/213/175/france-paris-the-francois-mitterrand-library-architecture.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        thead {
+            background-color:gray;
+            ;
+            color: white;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        caption {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+{% include 'navbar.html' %}
+    <table>
+       
+        <thead>
+            <th colspan="7">Transation History</th>
+            <tr>
+                <th>Customer ID</th>
+                <th>Date & Time</th>
+                <th>Amount</th>
+                <th>E-Gift</th>
+                <th>Expenses</th>
+                <th>Username</th>
+                <th>Payee ID</th>
+            </tr>
+        </thead>
+        <form method="post">{% csrf_token %}
+        <tbody>
+            {% for res in res %}
+            <tr>
+                <td>{{ res.Customer_ID }}</td>
+                <td>{{ res.Date_Time }}</td>
+                <td>{{ res.Amount }}</td>>
+                <td>{{ res.E_Gift }}</td>
+                <td>{{ res.Expenses }}</td>
+                <td>{{ request.user.username }}</td>
+                <td>{{ res.payee_ID }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No users available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </form>
+    </table>
+
+</body>
+</html>
